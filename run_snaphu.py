@@ -1,6 +1,7 @@
 import os, glob
 print(os.environ['SNAP_ROOT'])
 SNAP_ROOT = os.environ['SNAP_ROOT']
+OUTPUT_DIR = os.environ['OUTPUT_DIR']
 
 filename = glob.glob('UnwPhase_ifg_*.snaphu.img')
 if len(filename) == 0:
@@ -19,7 +20,7 @@ if len(filename) == 0:
 filename = glob.glob('UnwPhase_ifg_*.snaphu.hdr')
 if len(filename) > 0:
     # os.system('cd %s' % os.environ['SNAP_ROOT'])
-    cmd = r'java -cp "%s\modules\*;%s\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%s" -Xmx12G org.esa.snap.runtime.Launcher G:\gdSAR\snap_exps\step5_gpt.xml -Pinput1="E:\outputs\step3.dim" -Pinput2="E:\outputs\SNAPHU\step3\%s" -Poutput1="E:\outputs\step5.dim"' % (SNAP_ROOT, SNAP_ROOT, SNAP_ROOTfilename[0])
+    cmd = r'java -cp "%s\modules\*;%s\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%s" -Xmx12G org.esa.snap.runtime.Launcher G:\gdSAR\snap_exps\step5_gpt.xml -Pinput1="%s\step3.dim" -Pinput2="%s\SNAPHU\step3\%s" -Poutput1="%s\step5.dim"' % (SNAP_ROOT, SNAP_ROOT, SNAP_ROOT, OUTPUT_DIR,  OUTPUT_DIR, filename[0], OUTPUT_DIR)
     print(cmd)
     os.system(cmd)
 
