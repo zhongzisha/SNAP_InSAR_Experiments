@@ -1,0 +1,72 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Interferogram">
+    <operator>Interferogram</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <subtractFlatEarthPhase>true</subtractFlatEarthPhase>
+      <srpPolynomialDegree>5</srpPolynomialDegree>
+      <srpNumberPoints>501</srpNumberPoints>
+      <orbitDegree>3</orbitDegree>
+      <includeCoherence>true</includeCoherence>
+      <cohWinAz>5</cohWinAz>
+      <cohWinRg>20</cohWinRg>
+      <squarePixel>true</squarePixel>
+      <subtractTopographicPhase>true</subtractTopographicPhase>
+      <demName>SRTM 3Sec</demName>
+      <externalDEMFile/>
+      <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
+      <externalDEMApplyEGM>true</externalDEMApplyEGM>
+      <tileExtensionPercent>100</tileExtensionPercent>
+      <outputElevation>true</outputElevation>
+      <outputLatLon>true</outputLatLon>
+    </parameters>
+  </node>
+  <node id="TOPSAR-Deburst">
+    <operator>TOPSAR-Deburst</operator>
+    <sources>
+      <sourceProduct refid="Interferogram"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <selectedPolarisations>VV</selectedPolarisations>
+    </parameters>
+  </node>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>$input1</file>
+      <copyMetadata>true</copyMetadata> 
+      <bandNames/>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="TOPSAR-Deburst"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>$output1</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Interferogram">
+      <displayPosition x="460.0" y="122.0"/>
+    </node>
+    <node id="TOPSAR-Deburst">
+      <displayPosition x="584.0" y="122.0"/>
+    </node>
+    <node id="Read">
+      <displayPosition x="337.0" y="118.0"/>
+    </node>
+    <node id="Write">
+      <displayPosition x="811.0" y="145.0"/>
+    </node>
+  </applicationData>
+</graph>

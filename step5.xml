@@ -1,0 +1,63 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="1-Read-Phase">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>E:\outputs\step3.dim</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,3198,6106</pixelRegion>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="2-Read-Unwrapped-Phase">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>E:\outputs\SNAPHU\step3\UnwPhase_ifg_VV_24Jul2019_17Aug2019.snaphu.hdr</file>
+      <formatName>SNAPHU</formatName>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,3199,6119</pixelRegion>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="3-SnaphuImport">
+    <operator>SnaphuImport</operator>
+    <sources>
+      <sourceProduct refid="1-Read-Phase"/>
+      <sourceProduct.1 refid="2-Read-Unwrapped-Phase"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <doNotKeepWrapped>false</doNotKeepWrapped>
+    </parameters>
+  </node>
+  <node id="4-Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="3-SnaphuImport"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>E:\outputs\step5.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="1-Read-Phase">
+            <displayPosition x="55.0" y="82.0"/>
+    </node>
+    <node id="2-Read-Unwrapped-Phase">
+            <displayPosition x="57.0" y="185.0"/>
+    </node>
+    <node id="3-SnaphuImport">
+            <displayPosition x="217.0" y="131.0"/>
+    </node>
+    <node id="4-Write">
+            <displayPosition x="401.0" y="131.0"/>
+    </node>
+  </applicationData>
+</graph>

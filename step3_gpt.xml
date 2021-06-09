@@ -1,0 +1,84 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="TopoPhaseRemoval">
+    <operator>TopoPhaseRemoval</operator>
+    <sources>
+      <sourceProduct refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <orbitDegree>3</orbitDegree>
+      <demName>SRTM 3Sec</demName>
+      <externalDEMFile/>
+      <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
+      <tileExtensionPercent>100</tileExtensionPercent>
+      <outputTopoPhaseBand>true</outputTopoPhaseBand>
+      <outputElevationBand>true</outputElevationBand>
+      <outputLatLonBands>true</outputLatLonBands>
+    </parameters>
+  </node>
+  <node id="Multilook">
+    <operator>Multilook</operator>
+    <sources>
+      <sourceProduct refid="TopoPhaseRemoval"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <nRgLooks>8</nRgLooks>
+      <nAzLooks>2</nAzLooks>
+      <outputIntensity>false</outputIntensity>
+      <grSquarePixel>true</grSquarePixel>
+    </parameters>
+  </node>
+  <node id="GoldsteinPhaseFiltering">
+    <operator>GoldsteinPhaseFiltering</operator>
+    <sources>
+      <sourceProduct refid="Multilook"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <alpha>1.0</alpha>
+      <FFTSizeString>128</FFTSizeString>
+      <windowSizeString>3</windowSizeString>
+      <useCoherenceMask>false</useCoherenceMask>
+      <coherenceThreshold>0.2</coherenceThreshold>
+    </parameters>
+  </node>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>$input1</file>
+      <copyMetadata>true</copyMetadata> 
+      <bandNames/>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="GoldsteinPhaseFiltering"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>$output1</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="TopoPhaseRemoval">
+      <displayPosition x="712.0" y="120.0"/>
+    </node>
+    <node id="Multilook">
+      <displayPosition x="865.0" y="120.0"/>
+    </node>
+    <node id="GoldsteinPhaseFiltering">
+      <displayPosition x="954.0" y="122.0"/>
+    </node>
+    <node id="Read">
+      <displayPosition x="337.0" y="118.0"/>
+    </node>
+    <node id="Write">
+      <displayPosition x="1135.0" y="124.0"/>
+    </node>
+  </applicationData>
+</graph>
