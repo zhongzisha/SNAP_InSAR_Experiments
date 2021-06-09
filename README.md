@@ -2,6 +2,8 @@
 
 https://forum.step.esa.int/t/how-to-setup-gpt-commandline-from-source-code/2132/6
 
+https://www.bilibili.com/video/BV1vv411i7se
+
 ```
 cd SNAP/snap-engine
 mvn dependency:copy-dependencies -DoutputDirectory=../snap-engine-dependencies
