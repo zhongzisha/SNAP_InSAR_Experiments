@@ -1,0 +1,45 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="2-CreateStack">
+    <operator>CreateStack</operator>
+    <sources>
+      <sourceProduct.7 refid="1-ProductSet-Reader"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <masterBands/>
+      <sourceBands/>
+      <resamplingType>BICUBIC_INTERPOLATION</resamplingType>
+      <extent>Master</extent>
+      <initialOffsetMethod>Product Geolocation</initialOffsetMethod>
+    </parameters>
+  </node>
+  <node id="3-Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="2-CreateStack"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>E:\outputs\step7_Stack.dim</file>
+      <formatName>BEAM-DIMAP</formatName>
+    </parameters>
+  </node>
+  <node id="1-ProductSet-Reader">
+    <operator>ProductSet-Reader</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <fileList>E:\outputs_1_2\step7.dim,E:\outputs_2_3\step7.dim,E:\outputs_3_4\step7.dim,E:\outputs_4_5\step7.dim,E:\outputs_5_6\step7.dim,E:\outputs_6_7\step7.dim,E:\outputs_7_8\step7.dim</fileList>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="2-CreateStack">
+      <displayPosition x="201.0" y="102.0"/>
+    </node>
+    <node id="3-Write">
+      <displayPosition x="319.0" y="170.0"/>
+    </node>
+    <node id="1-ProductSet-Reader">
+      <displayPosition x="72.0" y="102.0"/>
+    </node>
+  </applicationData>
+</graph>

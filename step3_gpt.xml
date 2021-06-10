@@ -11,9 +11,9 @@
       <externalDEMFile/>
       <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
       <tileExtensionPercent>100</tileExtensionPercent>
-      <outputTopoPhaseBand>true</outputTopoPhaseBand>
-      <outputElevationBand>true</outputElevationBand>
-      <outputLatLonBands>true</outputLatLonBands>
+      <outputTopoPhaseBand>false</outputTopoPhaseBand>
+      <outputElevationBand>false</outputElevationBand>
+      <outputLatLonBands>false</outputLatLonBands>
     </parameters>
   </node>
   <node id="Multilook">

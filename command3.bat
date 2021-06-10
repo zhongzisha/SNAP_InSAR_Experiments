@@ -51,12 +51,20 @@ PhaseToDisplacement ^
 -t "%OUTPUT_DIR%\step6.dim"
 )
 
+REM stacking
 if not exist "%OUTPUT_DIR%\step7.dim" (
 %SNAP_MAIN_EXE% ^
+G:\gdSAR\snap_exps\step6_gpt.xml ^
+-Pinput1="%OUTPUT_DIR%\step6.dim,%OUTPUT_DIR%\step5.dim" ^
+-Poutput1="%OUTPUT_DIR%\step7.dim"
+)
+
+if not exist "%OUTPUT_DIR%\step8.dim" (
+%SNAP_MAIN_EXE% ^
 Terrain-Correction ^
--Ssource="%OUTPUT_DIR%\step6.dim" ^
+-Ssource="%OUTPUT_DIR%\step7.dim" ^
 -PsaveDEM=true ^
--t "%OUTPUT_DIR%\step7.dim"
+-t "%OUTPUT_DIR%\step8.dim"
 )
 
 if exist "%OUTPUT_DIR%\step7.dim" (
@@ -66,11 +74,13 @@ rd /s /q "%OUTPUT_DIR%\step3.data"
 rd /s /q "%OUTPUT_DIR%\SNAPHU"
 rd /s /q "%OUTPUT_DIR%\step5.data"
 rd /s /q "%OUTPUT_DIR%\step6.data"
+rd /s /q "%OUTPUT_DIR%\step7.data"
 del %OUTPUT_DIR%\step1.dim
 del %OUTPUT_DIR%\step2.dim
 del %OUTPUT_DIR%\step3.dim
 del %OUTPUT_DIR%\step5.dim
 del %OUTPUT_DIR%\step6.dim
+del %OUTPUT_DIR%\step7.dim
 )
 
 

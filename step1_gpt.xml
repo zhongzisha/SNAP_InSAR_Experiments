@@ -18,7 +18,6 @@
       <useAdvancedOptions>false</useAdvancedOptions>
       <file>$input2</file>
       <copyMetadata>true</copyMetadata>
-      <pixelRegion>0,0,2147483647,2147483647</pixelRegion>
       <bandNames/>
       <maskNames/>
     </parameters>

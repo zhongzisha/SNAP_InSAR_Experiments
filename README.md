@@ -21,5 +21,6 @@ The s3tbx modules need to be added manually to the modules dir.
 
 Then, the `gpt.bat` can be found in the `snap-engine-<version>.zip`.
 
+HDF5 not found, add the `-Djava.library.path=$HDFJAVA_HOME"/lib"` to VM options.
 
 
