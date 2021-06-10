@@ -1,12 +1,15 @@
-set SNAP_ROOT="E:\SNAP\snap-engine-9.0.0-SNAPSHOT"
+set SNAP_ROOT=E:\SNAP\snap-engine-9.0.0-SNAPSHOT
 set OUTPUT_DIR=%3
+set SNAP_MAIN_EXE=java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Djava.library.path="%SNAP_ROOT%\lib" -Xmx12G org.esa.snap.runtime.Launcher
+
+echo %SNAP_MAIN_EXE%
 
 cd %SNAP_ROOT%
 
 E:
 
 if not exist "%OUTPUT_DIR%\step1.dim" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 G:\gdSAR\snap_exps\step1_gpt.xml ^
 -Pinput1="G:\gdSAR\%1" ^
 -Pinput2="G:\gdSAR\%2" ^
@@ -15,21 +18,21 @@ G:\gdSAR\snap_exps\step1_gpt.xml ^
 
 
 if not exist "%OUTPUT_DIR%\step2.dim" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 G:\gdSAR\snap_exps\step2_gpt.xml ^
 -Pinput1="%OUTPUT_DIR%\step1.dim" ^
 -Poutput1="%OUTPUT_DIR%\step2.dim"
 )
 
 if not exist "%OUTPUT_DIR%\step3.dim" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 G:\gdSAR\snap_exps\step3_gpt.xml ^
 -Pinput1="%OUTPUT_DIR%\step2.dim" ^
 -Poutput1="%OUTPUT_DIR%\step3.dim"
 )
 
 if not exist "%OUTPUT_DIR%\SNAPHU\snaphu.conf" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 G:\gdSAR\snap_exps\step4_gpt.xml ^
 -Pinput1="%OUTPUT_DIR%\step3.dim" ^
 -Poutput1="%OUTPUT_DIR%\SNAPHU"
@@ -42,14 +45,14 @@ python G:\gdSAR\snap_exps\run_snaphu.py
 cd %SNAP_ROOT%
 
 if not exist "%OUTPUT_DIR%\step6.dim" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 PhaseToDisplacement ^
 -Ssource="%OUTPUT_DIR%\step5.dim" ^
 -t "%OUTPUT_DIR%\step6.dim"
 )
 
 if not exist "%OUTPUT_DIR%\step7.dim" (
-java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Xmx12G org.esa.snap.runtime.Launcher ^
+%SNAP_MAIN_EXE% ^
 Terrain-Correction ^
 -Ssource="%OUTPUT_DIR%\step6.dim" ^
 -PsaveDEM=true ^
@@ -57,12 +60,12 @@ Terrain-Correction ^
 )
 
 if exist "%OUTPUT_DIR%\step7.dim" (
-rm /s /q "%OUTPUT_DIR%\step1"
-rm /s /q "%OUTPUT_DIR%\step2"
-rm /s /q "%OUTPUT_DIR%\step3"
-rm /s /q "%OUTPUT_DIR%\SNAPHU"
-rm /s /q "%OUTPUT_DIR%\step5"
-rm /s /q "%OUTPUT_DIR%\step6"
+rd /s /q "%OUTPUT_DIR%\step1.data"
+rd /s /q "%OUTPUT_DIR%\step2.data"
+rd /s /q "%OUTPUT_DIR%\step3.data"
+rd /s /q "%OUTPUT_DIR%\SNAPHU"
+rd /s /q "%OUTPUT_DIR%\step5.data"
+rd /s /q "%OUTPUT_DIR%\step6.data"
 del %OUTPUT_DIR%\step1.dim
 del %OUTPUT_DIR%\step2.dim
 del %OUTPUT_DIR%\step3.dim
