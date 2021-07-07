@@ -6,7 +6,7 @@ import time
 
 
 src_dir = r'G:\gdSAR'  # sys.argv[1]   # slaves
-dst_dir = r'E:\stamps\step1_results'  # sys.argv[2]
+dst_dir = r'E:\step1_results'  # sys.argv[2]
 
 if not os.path.exists(dst_dir):
     os.makedirs(dst_dir)
@@ -22,7 +22,7 @@ filenames = glob.glob(os.path.join(src_dir, 'S1A_*'))
 for k, filename in enumerate(filenames):
     head, tail = os.path.split(filename)
     print(tail[17:25])
-    command = r'%s step1_Split_and_ApplyOrbit.xml -Pinput1=%s -Poutput1=%s\%s.dim' % \
+    command = r'%s step1_Split_and_ApplyOrbit_noDeburst.xml -Pinput1=%s -Poutput1=%s\%s.dim' % \
               (SNAP_MAIN_EXE, filename, dst_dir, tail[17:25])
     # launching the process
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)

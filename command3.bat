@@ -1,4 +1,5 @@
 set SNAP_ROOT=E:\SNAP\snap-engine-9.0.0-SNAPSHOT
+set CLASSPATH=%CLASSPATH%;%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*;
 set SNAP_MAIN_EXE=java -cp "%SNAP_ROOT%\modules\*;%SNAP_ROOT%\lib\*" -Dsnap.mainClass=org.esa.snap.core.gpf.main.GPT -Dsnap.home="%SNAP_ROOT%" -Djava.library.path="%SNAP_ROOT%\lib" -Xmx12G org.esa.snap.runtime.Launcher
 
 echo %SNAP_MAIN_EXE%
