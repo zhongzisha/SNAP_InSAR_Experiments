@@ -190,9 +190,8 @@ if True:
         timeDelta = time.time() - timeStarted  # Get execution time.
         print('SNAP STDOUT:{}, {}'.format(stdout, timeDelta))
 
-        import pdb
-
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
 
 with open(r'%s/matlabscript.m' % stamps_run_dir, 'w') as fp:
     fp.write(matlab_tepmlate % mst_prefix)
@@ -202,4 +201,4 @@ with open(r'%s/run.bat' % stamps_run_dir, 'w') as fp:
     # fp.write('cd %s\n' % (stamps_run_dir.replace('D:\\', drive_maps['D:\\']).replace('E:\\', drive_maps['E:\\'])))
     fp.write('bash -ic \"ln -sf %s ./Export\"\n' % (
         stamps_export_dir.replace('D:\\', drive_maps['D:\\']).replace('E:\\', drive_maps['E:\\'])))
-    fp.write('bash -ic \"matlab -nojvm -nodesktop -nosplash -r \\\"run(\'matlabscript.m\');exit;\\\"\"')
+    fp.write('bash -ic \"matlab -r \\\"run(\'matlabscript.m\');exit;\\\"\"')
