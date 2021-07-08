@@ -42,15 +42,34 @@ setparm('merge_resample_size',merge_resample_size);
 setparm('unwrap_grid_size',unwrap_grid_size);
 setparm('unwrap_time_win',unwrap_grid_size);
 stamps(2,5);
-stamps(5,5);
-stamps(6,7);
+stamps(5,5); 
 
 stamps(6,6);
-setparm('scla_deramp','y');
+
+ps_plot('u');savemyfigure('1_after_unwrapping.pdf');
 
 stamps(7,7);
+ps_plot('d');savemyfigure('2_DEM_error.pdf');
+ps_plot('m');savemyfigure('3_master_atmosphere.pdf');
+ps_plot('u-dm');savemyfigure('4_unwrapping_phase_subtract_errors.pdf');
+ps_info;
+ps_plot('w-dm');savemyfigure('5_unwrapping_phase_subtract_errors2.pdf');
 
-stamps(6,7);
+setparm('scla_deramp','y');
+stamps(7,7);
+
+ps_plot('u-dmo');savemyfigure('6_unwrapping_phase_subtract_ramps.pdf');
+ps_plot('u-o');savemyfigure('7_unwrapping_phase_subtract_any_errors.pdf');
+
+ps_plot('v');savemyfigure('8_mean_velocity.pdf');
+ps_plot('v-do');savemyfigure('9_mean_velocity_subtract_errors.pdf');
+ps_plot('vs-do');savemyfigure('10_std_velocity_subtract_errors.pdf'); 
+
+ps_plot('v-d');savemyfigure('11_std_velocity_subtract_dem_error.pdf'); 
+ps_plot('v-d',-1);
+load('ps_plot_v-d');
+ps_gescatter('12_GoogleEarth.kml',ph_disp,1,0.4);
+
 quit;
 """
 
@@ -75,8 +94,8 @@ print(slaves)
 
 num_items_per_stack = 5
 
-subset_width = 5120
-subset_height = 5120
+subset_width = 8192
+subset_height = 8192
 
 num_stacks = int(np.ceil(len(slaves) / num_items_per_stack))
 
@@ -151,7 +170,10 @@ if True:
         # delete the temporary files
         if remove_temporary_files:
             for item in invalid_files:
-                shutil.rmtree(item, ignore_errors=True)
+                if os.path.isdir(item):
+                    shutil.rmtree(item, ignore_errors=True)
+                else:
+                    os.remove(item)
 
         # do stampsExport: gpt.bat G:\gdSAR\snap_exps\stampsExportGraph.xml
         # -Pinput1="D:\step2_results\20200413_Stack0_deb_subset.dim,D:\step2_results\20200413_Stack0_deb_subset_ifg.dim"
