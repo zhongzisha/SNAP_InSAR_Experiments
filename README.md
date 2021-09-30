@@ -24,3 +24,11 @@ Then, the `gpt.bat` can be found in the `snap-engine-<version>.zip`.
 HDF5 not found, add the `-Djava.library.path=$HDFJAVA_HOME"/lib"` to VM options.
 
 
+For `DoInSARStackOverview` project,
+```
+Build->Edit->Artifacts->+->Jar->From modules with dependencies->Main Class->copy to the output directory and link via manifest
+
+Add some dependencies to the Modules
+```
+
+change jblas-1.2.5 to jblas-1.2.4 is OK in CentOS 7.5 1804 64bit.
